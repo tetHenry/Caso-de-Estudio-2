@@ -1,29 +1,103 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using CasoEstudio2.EntityFramework;
+using CasoEstudio2.Models;
+using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using CasoEstudio2.EntityFramework;
+
 
 namespace CasoEstudio2.Controllers
 {
     public class CasasController : Controller
     {
-        // Instancia a la base de datos
-        CasoEstudioKNEntities bd = new CasoEstudioKNEntities();
-        [HttpGet]
+        // consulta casas
         public ActionResult Consulta()
         {
-            // Filtramos las casas que cuestan entre 115.000 y 180.000
-            var casas = bd.CasasSistema
-                .Where(c => c.PrecioCasa >= 115000 && c.PrecioCasa <= 180000)
-                .ToList();
-            // Ordenamos el resultado por estado: disponibles primero
-            // Evaluamos si el string 'UsuarioAlquiler' es nulo o vacío
-            var casasOrdenadas = casas
-                .OrderBy(c => string.IsNullOrEmpty(c.UsuarioAlquiler) ? 0 : 1)
-                .ToList();
-            return View(casasOrdenadas);
+            using (var db = new CasoEstudioKNEntities())
+            {
+                var casas = (from c in db.CasasSistema
+                             where c.PrecioCasa >= 115000 && c.PrecioCasa <= 180000
+                             orderby c.UsuarioAlquiler
+                             select new CasasModel
+                             {
+                                 IdCasa = c.IdCasa,
+                                 DescripcionCasa = c.DescripcionCasa,
+                                 PrecioCasa = c.PrecioCasa,
+                                 UsuarioAlquiler = c.UsuarioAlquiler,
+                                 FechaAlquiler = c.FechaAlquiler
+                             }).ToList();
+
+                return View(casas);
+            }
+        }
+
+        // alquiler casas
+        public ActionResult Alquiler()
+        {
+            using (var db = new CasoEstudioKNEntities())
+            {
+                var casasDisponibles = (from c in db.CasasSistema
+                                        where c.UsuarioAlquiler == null
+                                        select new
+                                        {
+                                            c.IdCasa,
+                                            c.DescripcionCasa
+                                        }).ToList();
+
+                ViewBag.ListaCasas = new SelectList(casasDisponibles, "IdCasa", "DescripcionCasa");
+            }
+
+            return View(new AlquilerModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Alquiler(AlquilerModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                using (var db = new CasoEstudioKNEntities())
+                {
+                    var casasDisponibles = (from c in db.CasasSistema
+                                            where c.UsuarioAlquiler == null
+                                            select new
+                                            {
+                                                c.IdCasa,
+                                                c.DescripcionCasa
+                                            }).ToList();
+
+                    ViewBag.ListaCasas = new SelectList(casasDisponibles, "IdCasa", "DescripcionCasa");
+                }
+                return View(model);
+            }
+
+            using (var db = new CasoEstudioKNEntities())
+            {
+                var casa = (from c in db.CasasSistema
+                            where c.IdCasa == model.IdCasa
+                            select c).FirstOrDefault();
+
+                if (casa != null)
+                {
+                    casa.UsuarioAlquiler = model.UsuarioAlquiler;
+                    casa.FechaAlquiler = DateTime.Now;
+                    db.SaveChanges();
+                }
+            }
+
+            return RedirectToAction("Consulta");
+        }
+
+        // precio casas
+        public JsonResult ObtenerPrecio(long id)
+        {
+            using (var db = new CasoEstudioKNEntities())
+            {
+                var precio = (from c in db.CasasSistema
+                              where c.IdCasa == id
+                              select c.PrecioCasa).FirstOrDefault();
+
+                return Json(new { precio = precio }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

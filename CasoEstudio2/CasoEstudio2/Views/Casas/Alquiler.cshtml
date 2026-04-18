@@ -1,0 +1,49 @@
+﻿@model CasoEstudio2.Models.AlquilerModel
+
+@{
+    ViewBag.Title = "Alquiler de Casas";
+}
+
+<h2>Alquiler de Casas</h2>
+
+@using (Html.BeginForm("Alquiler", "Casas", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label>Casa</label>
+        @Html.DropDownListFor(m => m.IdCasa, (SelectList)ViewBag.ListaCasas,
+            "-- Seleccione una casa --",
+            new { @class = "form-control", id = "ddlCasas" })
+    </div>
+
+    <div class="form-group">
+        <label>Precio Mensual</label>
+        @Html.TextBoxFor(m => m.PrecioCasa, new { @class = "form-control", @readonly = "readonly", id = "txtPrecio" })
+    </div>
+
+    <div class="form-group">
+        <label>Usuario Alquiler</label>
+        @Html.TextBoxFor(m => m.UsuarioAlquiler, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.UsuarioAlquiler, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-success">Alquilar</button>
+    @Html.ActionLink("Cancelar", "Consulta", "Casas", null, new { @class = "btn btn-default" })
+}
+
+@section Scripts {
+    <script>
+        //consulta el precio vía AJAX
+        $('#ddlCasas').change(function () {
+            var id = $(this).val();
+            if (id) {
+                $.getJSON('@Url.Action("ObtenerPrecio", "Casas")', { id: id }, function (data) {
+                    $('#txtPrecio').val(data.precio);
+                });
+            } else {
+                $('#txtPrecio').val('');
+            }
+        });
+    </script>
+}

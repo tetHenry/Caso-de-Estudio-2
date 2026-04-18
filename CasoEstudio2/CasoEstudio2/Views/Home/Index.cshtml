@@ -1,74 +1,20 @@
 ﻿@{
-    ViewBag.Title = "Bienvenidos";
+    ViewBag.Title = "Home";
 }
 
-<main class="container mt-5">
+<div class="card">
+    <h2>Bienvenido</h2>
 
-    <!-- ENCABEZADO -->
-    <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold">Bienvenido al Sistema de Gestión de Casas</h1>
-        <p class="lead text-muted">
-            Administre propiedades, alquileres y disponibilidad de manera fácil y eficiente.
-        </p>
+    <p style="color: var(--color-muted); margin-bottom: 32px; font-size: 0.95rem;">
+        Gestiona la consulta y el alquiler de casas disponibles desde el menú superior.
+    </p>
 
-        @Html.ActionLink(
-            "Ingresar al Sistema",
-            "Consulta",
-            "Casas",
-            null,
-            new { @class = "btn btn-primary btn-lg mt-3" }
-        )
+    <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+        <a href="@Url.Action("Consulta", "Casas")" class="btn-primary">
+            Ver Consulta de Casas
+        </a>
+        <a href="@Url.Action("Alquiler", "Casas")" class="btn-secondary">
+            Alquilar una Casa
+        </a>
     </div>
-
-    <!-- TARJETAS -->
-    <div class="row text-center">
-
-        <!-- Casas -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow h-100">
-                <div class="card-body">
-                    <h3 class="card-title">🏠 Casas</h3>
-                    <p class="card-text">
-                        Visualice todas las casas disponibles y gestione su estado.
-                    </p>
-                    
-                </div>
-            </div>
-        </div>
-
-        <!-- Alquileres -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow h-100">
-                <div class="card-body">
-                    <h3 class="card-title">📄 Alquileres</h3>
-                    <p class="card-text">
-                        Controle los alquileres activos y el historial de clientes.
-                    </p>
-                    
-                </div>
-            </div>
-        </div>
-
-        <!-- Usuarios -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow h-100">
-                <div class="card-body">
-                    <h3 class="card-title">👤 Usuarios</h3>
-                    <p class="card-text">
-                        Administre los usuarios del sistema y sus permisos.
-                    </p>
-                    
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- FOOTER -->
-    <div class="text-center mt-5">
-        <p class="text-muted">
-            © @DateTime.Now.Year - Sistema de Gestión de Casas
-        </p>
-    </div>
-
-</main>
+</div>
