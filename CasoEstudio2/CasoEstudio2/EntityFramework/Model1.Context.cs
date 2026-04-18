@@ -7,12 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CasoEstudio2.Models
+namespace CasoEstudio2.EntityFramework
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using CasoEstudio2.EntityFramework;
     
     public partial class CasoEstudioKNEntities : DbContext
     {

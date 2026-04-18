@@ -1,33 +1,74 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Bienvenidos";
 }
 
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
+<main class="container mt-5">
 
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
+    <!-- ENCABEZADO -->
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold">Bienvenido al Sistema de Gestión de Casas</h1>
+        <p class="lead text-muted">
+            Administre propiedades, alquileres y disponibilidad de manera fácil y eficiente.
+        </p>
+
+        @Html.ActionLink(
+            "Ingresar al Sistema",
+            "Consulta",
+            "Casas",
+            null,
+            new { @class = "btn btn-primary btn-lg mt-3" }
+        )
     </div>
+
+    <!-- TARJETAS -->
+    <div class="row text-center">
+
+        <!-- Casas -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-body">
+                    <h3 class="card-title">🏠 Casas</h3>
+                    <p class="card-text">
+                        Visualice todas las casas disponibles y gestione su estado.
+                    </p>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- Alquileres -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-body">
+                    <h3 class="card-title">📄 Alquileres</h3>
+                    <p class="card-text">
+                        Controle los alquileres activos y el historial de clientes.
+                    </p>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- Usuarios -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow h-100">
+                <div class="card-body">
+                    <h3 class="card-title">👤 Usuarios</h3>
+                    <p class="card-text">
+                        Administre los usuarios del sistema y sus permisos.
+                    </p>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="text-center mt-5">
+        <p class="text-muted">
+            © @DateTime.Now.Year - Sistema de Gestión de Casas
+        </p>
+    </div>
+
 </main>
