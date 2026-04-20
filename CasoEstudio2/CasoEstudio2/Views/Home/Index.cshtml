@@ -1,20 +1,102 @@
 ﻿@{
-    ViewBag.Title = "Home";
+    ViewBag.Title = "Inicio";
 }
 
-<div class="card">
-    <h2>Bienvenido</h2>
+<style>
+    body {
+        background: #f4f6f9;
+    }
 
-    <p style="color: var(--color-muted); margin-bottom: 32px; font-size: 0.95rem;">
-        Gestiona la consulta y el alquiler de casas disponibles desde el menú superior.
-    </p>
+    .welcome-container {
+        max-width: 900px;
+        margin: 60px auto;
+    }
 
-    <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        <a href="@Url.Action("Consulta", "Casas")" class="btn-primary">
-            Ver Consulta de Casas
-        </a>
-        <a href="@Url.Action("Alquiler", "Casas")" class="btn-secondary">
-            Alquilar una Casa
-        </a>
+    .welcome-card {
+        background: white;
+        border-radius: 16px;
+        padding: 40px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        text-align: center;
+    }
+
+    .welcome-title {
+        font-size: 2.2rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #2c3e50;
+    }
+
+    .welcome-subtitle {
+        color: #6c757d;
+        margin-bottom: 30px;
+        font-size: 1rem;
+    }
+
+    .btn-custom {
+        padding: 12px 25px;
+        border-radius: 10px;
+        font-weight: 500;
+        transition: 0.3s ease;
+        text-decoration: none;
+    }
+
+    .btn-primary-custom {
+        background: #0d6efd;
+        color: white;
+    }
+
+    .btn-primary-custom:hover {
+        background: #0b5ed7;
+        transform: translateY(-2px);
+    }
+
+    .btn-secondary-custom {
+        background: #6c757d;
+        color: white;
+    }
+
+    .btn-secondary-custom:hover {
+        background: #5c636a;
+        transform: translateY(-2px);
+    }
+
+    .btn-group-custom {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .icon {
+        font-size: 40px;
+        margin-bottom: 15px;
+        color: #0d6efd;
+    }
+</style>
+
+<div class="welcome-container">
+    <div class="welcome-card">
+        
+        <div class="icon">
+            
+        </div>
+
+        <h1 class="welcome-title">Bienvenido al Sistema</h1>
+
+        <p class="welcome-subtitle">
+            Administra fácilmente la consulta y el alquiler de casas disponibles en el sistema.
+        </p>
+
+        <div class="btn-group-custom">
+            <a href='@Url.Action("Consulta", "Casas")' class="btn-custom btn-primary-custom">
+                Ver Casas Disponibles
+            </a>
+
+            <a href='@Url.Action("Alquiler", "Casas")' class="btn-custom btn-secondary-custom">
+                Realizar Alquiler
+            </a>
+        </div>
+
     </div>
 </div>
